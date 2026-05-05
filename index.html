@@ -1,0 +1,865 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>SaathiExam – Find Your Exam Travel Partner</title>
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;500;600;700;800;900&family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet"/>
+<style>
+:root{
+  --b9:#0a1f5c;--b8:#1a3580;--b7:#1d4ed8;--b6:#2563eb;--b5:#3b82f6;
+  --b4:#60a5fa;--b3:#93c5fd;--b2:#bfdbfe;--b1:#dbeafe;--b0:#eff6ff;
+  --or:#f97316;--gr:#16a34a;--grl:#dcfce7;--re:#dc2626;
+  --g9:#111827;--g7:#374151;--g5:#6b7280;--g3:#d1d5db;--g1:#f3f4f6;--g0:#f9fafb;
+  --wh:#ffffff;
+  --sh1:0 1px 4px rgba(37,99,235,.08);
+  --sh2:0 4px 20px rgba(37,99,235,.12);
+  --sh3:0 8px 40px rgba(37,99,235,.18);
+  --r1:6px;--r2:12px;--r3:18px;--r4:26px;
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth;font-size:15px}
+body{font-family:'Poppins',sans-serif;background:#eef4ff;color:var(--g9);min-height:100vh;overflow-x:hidden}
+h1,h2,h3,h4,h5{font-family:'Nunito',sans-serif}
+button{cursor:pointer;font-family:'Poppins',sans-serif}
+a{text-decoration:none;color:inherit}
+
+/* ── TOP BAR ── */
+#topbar{
+  position:sticky;top:0;z-index:200;
+  background:var(--wh);border-bottom:2px solid var(--b1);
+  display:flex;align-items:center;justify-content:space-between;
+  padding:0 1.5rem;height:58px;box-shadow:var(--sh1);
+}
+.brand{font-family:'Nunito',sans-serif;font-size:21px;font-weight:900;color:var(--b7);display:flex;align-items:center;gap:6px}
+.brand-dot{color:var(--or)}
+.topnav{display:flex;gap:4px;align-items:center}
+.tnb{border:none;background:none;padding:7px 13px;border-radius:var(--r1);font-size:13px;font-weight:600;color:var(--g7);transition:all .18s;white-space:nowrap}
+.tnb:hover{background:var(--b0);color:var(--b7)}
+.tnb.on{background:var(--b6);color:var(--wh);box-shadow:0 2px 8px rgba(37,99,235,.3)}
+#hamburger{display:none;background:none;border:none;font-size:22px;color:var(--b7)}
+@media(max-width:600px){
+  .topnav{display:none;position:absolute;top:58px;left:0;right:0;background:var(--wh);flex-direction:column;padding:.75rem;border-bottom:2px solid var(--b1);box-shadow:var(--sh2);gap:2px}
+  .topnav.open{display:flex}
+  .tnb{text-align:left;padding:10px 14px}
+  #hamburger{display:block}
+}
+
+/* ── PAGES ── */
+.pg{display:none;max-width:900px;margin:0 auto;padding:2rem 1.25rem 4rem}
+.pg.on{display:block}
+
+/* ── HERO ── */
+.hero{
+  background:linear-gradient(135deg,var(--b8) 0%,var(--b6) 60%,#4f8fef 100%);
+  border-radius:var(--r4);padding:3rem 2rem;color:var(--wh);text-align:center;
+  margin-bottom:2rem;position:relative;overflow:hidden;
+}
+.hero::before{
+  content:'';position:absolute;inset:0;
+  background:url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.05'%3E%3Ccircle cx='30' cy='30' r='4'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+}
+.hero>*{position:relative;z-index:1}
+.live-pill{display:inline-flex;align-items:center;gap:6px;background:rgba(255,255,255,.15);backdrop-filter:blur(8px);border:1px solid rgba(255,255,255,.25);padding:5px 14px;border-radius:99px;font-size:12px;font-weight:600;letter-spacing:.06em;margin-bottom:1.5rem}
+.live-dot{width:7px;height:7px;background:#4ade80;border-radius:50%;animation:blink 1.4s infinite}
+@keyframes blink{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.4;transform:scale(.8)}}
+.hero h1{font-size:clamp(26px,5vw,44px);font-weight:900;line-height:1.15;margin-bottom:.75rem}
+.hero h1 em{font-style:normal;color:#93c5fd}
+.hero p{font-size:15px;opacity:.88;max-width:480px;margin:0 auto 2rem;line-height:1.7}
+.hero-btns{display:flex;gap:12px;justify-content:center;flex-wrap:wrap}
+.hbtn{padding:11px 26px;border-radius:var(--r2);font-size:14px;font-weight:700;border:none;transition:all .2s}
+.hbtn-white{background:var(--wh);color:var(--b7);box-shadow:0 4px 14px rgba(0,0,0,.15)}
+.hbtn-white:hover{transform:translateY(-2px);box-shadow:0 6px 20px rgba(0,0,0,.2)}
+.hbtn-outline{background:rgba(255,255,255,.12);color:var(--wh);border:2px solid rgba(255,255,255,.4)}
+.hbtn-outline:hover{background:rgba(255,255,255,.22)}
+.hero-stats{display:flex;justify-content:center;gap:2.5rem;margin-top:2rem;flex-wrap:wrap}
+.hstat{text-align:center}
+.hstat-n{font-family:'Nunito',sans-serif;font-size:32px;font-weight:900;line-height:1}
+.hstat-l{font-size:11px;opacity:.7;text-transform:uppercase;letter-spacing:.07em;margin-top:2px}
+
+/* ── CARDS ── */
+.card{background:var(--wh);border-radius:var(--r3);border:1.5px solid var(--b1);padding:1.75rem;box-shadow:var(--sh1);margin-bottom:1.25rem}
+.card-hd{font-family:'Nunito',sans-serif;font-size:18px;font-weight:800;color:var(--b9);margin-bottom:1.25rem;display:flex;align-items:center;gap:10px}
+.card-hd .ico{width:36px;height:36px;background:var(--b0);border-radius:var(--r1);display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0}
+
+/* ── FORMS ── */
+.fgrid{display:grid;grid-template-columns:1fr 1fr;gap:1rem}
+@media(max-width:580px){.fgrid{grid-template-columns:1fr}}
+.fg{display:flex;flex-direction:column;gap:4px}
+.fg.full{grid-column:1/-1}
+label{font-size:12px;font-weight:700;color:var(--g7);text-transform:uppercase;letter-spacing:.05em}
+input[type=text],input[type=number],input[type=tel],input[type=date],input[type=email],select,textarea{
+  width:100%;padding:10px 13px;border:1.5px solid var(--g3);border-radius:var(--r1);
+  font-family:'Poppins',sans-serif;font-size:14px;color:var(--g9);
+  background:var(--wh);outline:none;transition:border .2s,box-shadow .2s;
+}
+input:focus,select:focus,textarea:focus{border-color:var(--b5);box-shadow:0 0 0 3px rgba(59,130,246,.14)}
+input::placeholder,textarea::placeholder{color:#c0cde8}
+.hint{font-size:11px;color:var(--g5);margin-top:2px}
+.loc-row{display:flex;gap:8px}
+.loc-row input{flex:1}
+.gps-btn{flex-shrink:0;padding:10px 11px;background:var(--b0);border:1.5px solid var(--b2);border-radius:var(--r1);font-size:17px;transition:background .18s;white-space:nowrap;display:flex;align-items:center;gap:4px;font-family:'Poppins',sans-serif;font-size:13px;font-weight:600;color:var(--b7)}
+.gps-btn:hover{background:var(--b1)}
+
+/* ── BUTTONS ── */
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:7px;padding:10px 22px;border-radius:var(--r2);font-family:'Poppins',sans-serif;font-size:14px;font-weight:600;border:none;transition:all .2s;cursor:pointer}
+.btn-pri{background:var(--b6);color:var(--wh);box-shadow:0 3px 12px rgba(37,99,235,.28)}
+.btn-pri:hover{background:var(--b7);transform:translateY(-1px);box-shadow:0 5px 18px rgba(37,99,235,.34)}
+.btn-sec{background:var(--wh);color:var(--b6);border:1.5px solid var(--b2)}
+.btn-sec:hover{background:var(--b0)}
+.btn-sml{padding:6px 14px;font-size:12px;border-radius:var(--r1)}
+.btn-red{background:#fee2e2;color:var(--re);border:none}
+.btn-red:hover{background:#fecaca}
+.btn-block{width:100%;margin-top:1rem}
+
+/* ── ALERTS ── */
+.alert{padding:11px 15px;border-radius:var(--r1);font-size:13px;margin-bottom:1rem;display:flex;align-items:center;gap:9px}
+.al-ok{background:var(--grl);color:#166534;border:1px solid #bbf7d0}
+.al-inf{background:var(--b0);color:var(--b8);border:1px solid var(--b1)}
+.al-err{background:#fee2e2;color:#991b1b;border:1px solid #fecaca}
+.al-warn{background:#fff7ed;color:#9a3412;border:1px solid #fed7aa}
+
+/* ── SECTION TITLES ── */
+.pg-title{font-family:'Nunito',sans-serif;font-size:24px;font-weight:900;color:var(--b9);margin-bottom:.2rem}
+.pg-sub{font-size:13px;color:var(--g5);margin-bottom:1.5rem}
+
+/* ── MATCH CARDS ── */
+.match-bar{display:flex;gap:10px;margin-bottom:1.25rem;flex-wrap:wrap}
+.match-bar input{flex:1;min-width:160px}
+.match-bar select{padding:10px 13px;border:1.5px solid var(--g3);border-radius:var(--r1);font-family:'Poppins',sans-serif;font-size:13px;background:var(--wh);color:var(--g9);outline:none}
+.match-bar select:focus{border-color:var(--b5)}
+.mhead{display:flex;align-items:center;justify-content:space-between;margin-bottom:1rem;flex-wrap:wrap;gap:.5rem}
+.mcount{font-size:13px;color:var(--g5);font-weight:500}
+.liveind{display:flex;align-items:center;gap:5px;font-size:12px;color:var(--gr);font-weight:700;background:var(--grl);padding:4px 11px;border-radius:99px;border:1px solid #bbf7d0}
+.liveind .dot{width:6px;height:6px;background:var(--gr);border-radius:50%;animation:blink 1.4s infinite}
+
+.mc{background:var(--wh);border-radius:var(--r3);border:1.5px solid var(--b1);padding:1.25rem;margin-bottom:1rem;box-shadow:var(--sh1);transition:box-shadow .2s,transform .2s;animation:fadein .35s ease}
+.mc:hover{box-shadow:var(--sh2);transform:translateY(-2px)}
+@keyframes fadein{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
+.mc-top{display:flex;align-items:flex-start;gap:1rem;justify-content:space-between;flex-wrap:wrap}
+.mc-left{display:flex;gap:12px;align-items:flex-start;flex:1;min-width:0}
+.ava{width:48px;height:48px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-family:'Nunito',sans-serif;font-size:18px;font-weight:800;color:var(--wh);flex-shrink:0}
+.mc-info{flex:1;min-width:0}
+.mc-name{font-family:'Nunito',sans-serif;font-size:19px;font-weight:800;color:var(--b9)}
+.mc-exam{font-size:12px;color:var(--g5);margin-top:1px}
+.badges{display:flex;gap:5px;flex-wrap:wrap;margin-top:6px}
+.bdg{display:inline-flex;align-items:center;gap:3px;padding:2px 9px;border-radius:99px;font-size:11px;font-weight:600}
+.bdg-b{background:var(--b0);color:var(--b7);border:1px solid var(--b1)}
+.bdg-g{background:var(--grl);color:var(--gr);border:1px solid #bbf7d0}
+.bdg-o{background:#fff7ed;color:var(--or);border:1px solid #fed7aa}
+.score-ring{flex-shrink:0;width:54px;height:54px;border-radius:50%;border:3px solid var(--b6);display:flex;flex-direction:column;align-items:center;justify-content:center;background:var(--b0)}
+.score-n{font-family:'Nunito',sans-serif;font-size:15px;font-weight:900;color:var(--b7);line-height:1}
+.score-l{font-size:8px;color:var(--g5);text-transform:uppercase;letter-spacing:.04em}
+.mc-locs{display:grid;grid-template-columns:1fr 1fr;gap:.75rem;margin-top:1rem;padding-top:.75rem;border-top:1.5px dashed var(--b1)}
+@media(max-width:480px){.mc-locs{grid-template-columns:1fr}}
+.loc-it{display:flex;gap:8px;align-items:flex-start}
+.loc-ic{font-size:16px;flex-shrink:0;margin-top:1px}
+.loc-txt{font-size:12px;color:var(--g7);line-height:1.4}
+.loc-lbl{font-size:10px;color:var(--g5);text-transform:uppercase;letter-spacing:.06em;display:block;margin-bottom:1px;font-weight:700}
+.mc-bio{margin-top:.85rem;padding:.75rem 1rem;background:var(--b0);border-radius:var(--r1);font-size:13px;color:var(--g7);font-style:italic;border-left:3px solid var(--b4)}
+.mc-map{width:100%;height:200px;border-radius:var(--r2);border:1.5px solid var(--b1);margin-top:.85rem}
+.mc-acts{display:flex;gap:8px;margin-top:1rem;flex-wrap:wrap}
+
+/* NOT FOUND STATE */
+.nf{text-align:center;padding:4rem 2rem}
+.nf-spin{width:60px;height:60px;border:4px solid var(--b1);border-top-color:var(--b6);border-radius:50%;animation:spin 1s linear infinite;margin:0 auto 1.5rem}
+@keyframes spin{to{transform:rotate(360deg)}}
+.nf h3{font-family:'Nunito',sans-serif;font-size:21px;color:var(--b9);margin-bottom:.5rem}
+.nf p{font-size:13px;color:var(--g5);max-width:340px;margin:0 auto .5rem;line-height:1.6}
+
+/* ── HOW IT WORKS ── */
+.steps{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:1rem;margin-top:1.25rem}
+.step{background:var(--g0);border-radius:var(--r2);padding:1.25rem 1rem;text-align:center;border:1.5px solid var(--b1)}
+.step-n{width:34px;height:34px;background:var(--b6);color:var(--wh);border-radius:50%;display:flex;align-items:center;justify-content:center;font-family:'Nunito',sans-serif;font-weight:900;font-size:16px;margin:0 auto .75rem}
+.step h4{font-size:13px;font-weight:700;color:var(--b9);margin-bottom:4px}
+.step p{font-size:12px;color:var(--g5);line-height:1.5}
+
+/* ── CHAT ── */
+.chat-list{display:flex;flex-direction:column;gap:.75rem}
+.ci{background:var(--wh);border-radius:var(--r2);border:1.5px solid var(--b1);padding:.9rem 1.1rem;display:flex;align-items:center;gap:.9rem;cursor:pointer;transition:all .18s}
+.ci:hover,.ci.on{background:var(--b0);border-color:var(--b3)}
+.ci-ava{width:42px;height:42px;border-radius:50%;background:var(--b6);color:var(--wh);display:flex;align-items:center;justify-content:center;font-family:'Nunito',sans-serif;font-size:15px;font-weight:800;flex-shrink:0}
+.ci-meta{flex:1;min-width:0}
+.ci-name{font-weight:700;font-size:14px;color:var(--b9)}
+.ci-prev{font-size:12px;color:var(--g5);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;margin-top:1px}
+.ci-time{font-size:11px;color:var(--g3);flex-shrink:0}
+
+.cwin{background:var(--wh);border-radius:var(--r3);border:1.5px solid var(--b1);overflow:hidden;box-shadow:var(--sh2)}
+.cwin-hd{background:linear-gradient(90deg,var(--b7),var(--b6));color:var(--wh);padding:.9rem 1.1rem;display:flex;align-items:center;gap:.75rem}
+.cwin-ava{width:36px;height:36px;border-radius:50%;background:rgba(255,255,255,.22);display:flex;align-items:center;justify-content:center;font-family:'Nunito',sans-serif;font-weight:800;font-size:14px}
+.cwin-info h3{font-size:15px;font-weight:700}
+.cwin-info p{font-size:11px;opacity:.8;margin-top:1px}
+.cback{background:none;border:none;color:var(--wh);font-size:20px;margin-right:2px;padding:0 6px 0 0}
+.cmsgs{height:360px;overflow-y:auto;padding:1.1rem;display:flex;flex-direction:column;gap:.65rem;background:#f4f8ff;scroll-behavior:smooth}
+.msg{max-width:70%;display:flex;flex-direction:column;gap:2px}
+.msg.me{align-self:flex-end;align-items:flex-end}
+.msg.them{align-self:flex-start;align-items:flex-start}
+.bub{padding:9px 13px;border-radius:15px;font-size:13px;line-height:1.55;word-break:break-word}
+.msg.me .bub{background:var(--b6);color:var(--wh);border-bottom-right-radius:3px}
+.msg.them .bub{background:var(--wh);color:var(--g9);border:1px solid var(--g3);border-bottom-left-radius:3px}
+.msg-t{font-size:10px;color:var(--g5);padding:0 3px}
+.cinput{padding:.75rem 1rem;border-top:1.5px solid var(--b1);display:flex;gap:.65rem;align-items:center;background:var(--wh)}
+.cinput input{flex:1;padding:9px 14px;border:1.5px solid var(--g3);border-radius:99px;font-family:'Poppins',sans-serif;font-size:13px;outline:none}
+.cinput input:focus{border-color:var(--b5)}
+.sbtn{width:38px;height:38px;border-radius:50%;background:var(--b6);color:var(--wh);border:none;font-size:16px;display:flex;align-items:center;justify-content:center;flex-shrink:0;transition:background .18s}
+.sbtn:hover{background:var(--b7)}
+.qr-area{margin-top:.85rem}
+.qr-label{font-size:11px;color:var(--g5);font-weight:700;text-transform:uppercase;letter-spacing:.05em;margin-bottom:.5rem}
+.qr-btns{display:flex;gap:6px;flex-wrap:wrap}
+
+/* ── PROFILE ── */
+.prof-top{background:linear-gradient(135deg,var(--b8),var(--b6));border-radius:var(--r3);padding:1.75rem;color:var(--wh);text-align:center;margin-bottom:1.25rem}
+.prof-ava{width:70px;height:70px;border-radius:50%;background:rgba(255,255,255,.22);display:flex;align-items:center;justify-content:center;font-family:'Nunito',sans-serif;font-size:26px;font-weight:900;margin:0 auto 1rem;border:3px solid rgba(255,255,255,.35)}
+.prof-name{font-size:22px;font-weight:900;margin-bottom:3px}
+.prof-sub{font-size:13px;opacity:.8}
+.prow{display:flex;justify-content:space-between;align-items:center;padding:.65rem 0;border-bottom:1px solid var(--g1);gap:1rem;flex-wrap:wrap}
+.prow:last-child{border-bottom:none}
+.pkey{font-size:12px;color:var(--g5);font-weight:700;text-transform:uppercase;letter-spacing:.05em;flex-shrink:0}
+.pval{font-size:13px;color:var(--g9);text-align:right;font-weight:500}
+
+/* ── SAFETY ── */
+.safety-list{display:flex;flex-direction:column;gap:.65rem;margin-top:.25rem}
+.sitem{display:flex;gap:10px;font-size:13px;color:var(--g7);align-items:flex-start;line-height:1.5}
+.sitem span:first-child{flex-shrink:0;font-size:15px}
+
+/* ── FOOTER ── */
+footer{text-align:center;padding:1.75rem 1rem;font-size:12px;color:var(--g5);border-top:1.5px solid var(--b1);margin-top:2rem;background:var(--wh)}
+footer strong{color:var(--b7)}
+
+/* ── MODAL ── */
+.modal-bg{display:none;position:fixed;inset:0;background:rgba(10,31,92,.45);z-index:500;align-items:center;justify-content:center;padding:1rem}
+.modal-bg.open{display:flex}
+.modal{background:var(--wh);border-radius:var(--r3);padding:1.75rem;max-width:420px;width:100%;box-shadow:var(--sh3);animation:fadein .2s ease}
+.modal h3{font-family:'Nunito',sans-serif;font-size:20px;font-weight:800;color:var(--b9);margin-bottom:.75rem}
+.modal p{font-size:13px;color:var(--g7);line-height:1.6;margin-bottom:1rem}
+.modal-acts{display:flex;gap:.75rem;flex-wrap:wrap}
+
+/* ── EMPTY CHAT ── */
+.empty-chat{text-align:center;padding:3rem 1.5rem}
+.empty-chat .ec-ico{font-size:52px;margin-bottom:1rem}
+.empty-chat h3{font-family:'Nunito',sans-serif;font-size:19px;color:var(--b9);margin-bottom:.4rem}
+.empty-chat p{font-size:13px;color:var(--g5)}
+
+/* ── TOOLTIP badge ── */
+.new-badge{background:var(--or);color:var(--wh);font-size:10px;font-weight:700;padding:1px 7px;border-radius:99px;margin-left:4px;vertical-align:middle}
+</style>
+</head>
+<body>
+
+<!-- TOP BAR -->
+<div id="topbar">
+  <div class="brand">🚂 Saathi<span class="brand-dot">Exam</span></div>
+  <button id="hamburger" onclick="toggleMenu()">☰</button>
+  <nav class="topnav" id="topnav">
+    <button class="tnb on" onclick="go('home')">🏠 Home</button>
+    <button class="tnb" onclick="go('register')" id="nb-register">📝 Register</button>
+    <button class="tnb" onclick="go('matches')" id="nb-matches">🔍 Find Saathi</button>
+    <button class="tnb" onclick="go('chat')" id="nb-chat">💬 Chat</button>
+    <button class="tnb" onclick="go('profile')" id="nb-profile">👤 Profile</button>
+  </nav>
+</div>
+
+<!-- ═══════════════ HOME ═══════════════ -->
+<div class="pg on" id="pg-home">
+  <div class="hero">
+    <div class="live-pill"><span class="live-dot"></span> Live Matching Active</div>
+    <h1>Don't Travel to Your<br/>Exam <em>Alone</em> 🚂</h1>
+    <p>Thousands of students appear in SSC, RRB, BPSC & other government exams from the same areas. Find your travel companion — split costs, stay safe, arrive confident.</p>
+    <div class="hero-btns">
+      <button class="hbtn hbtn-white" onclick="go('register')">📝 Register Free</button>
+      <button class="hbtn hbtn-outline" onclick="go('matches')">🔍 Find My Saathi</button>
+    </div>
+    <div class="hero-stats">
+      <div class="hstat"><div class="hstat-n" id="hs-students">0</div><div class="hstat-l">Students Registered</div></div>
+      <div class="hstat"><div class="hstat-n" id="hs-matches">0</div><div class="hstat-l">Matches Found</div></div>
+      <div class="hstat"><div class="hstat-n">100%</div><div class="hstat-l">Free Forever</div></div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-hd"><div class="ico">🗺️</div> How It Works</div>
+    <div class="steps">
+      <div class="step"><div class="step-n">1</div><h4>Register</h4><p>Enter your name, home city, exam name, and exam center</p></div>
+      <div class="step"><div class="step-n">2</div><h4>Auto-Match</h4><p>System finds students going to the same center from nearby</p></div>
+      <div class="step"><div class="step-n">3</div><h4>Chat</h4><p>Message matched students, share coordinates & travel plans</p></div>
+      <div class="step"><div class="step-n">4</div><h4>Travel Together</h4><p>Split costs, stay safe, arrive on time — stress-free!</p></div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-hd"><div class="ico">🛡️</div> Safety First</div>
+    <div class="safety-list">
+      <div class="sitem"><span>✅</span><span>Phone & personal details only shared after you both agree to connect</span></div>
+      <div class="sitem"><span>✅</span><span>Only matched students (same exam center) can message each other</span></div>
+      <div class="sitem"><span>✅</span><span>Block or report any user instantly — no questions asked</span></div>
+      <div class="sitem"><span>✅</span><span>Profiles auto-expire 7 days after exam date to keep listings fresh</span></div>
+      <div class="sitem"><span>✅</span><span>Works entirely offline after first load — no internet needed for chat</span></div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-hd"><div class="ico">📋</div> Supported Exams</div>
+    <div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:.25rem">
+      <span class="bdg bdg-b">SSC CGL</span><span class="bdg bdg-b">SSC CHSL</span><span class="bdg bdg-b">RRB NTPC</span><span class="bdg bdg-b">RRB Group D</span><span class="bdg bdg-b">BPSC</span><span class="bdg bdg-b">UPPSC</span><span class="bdg bdg-b">MPSC</span><span class="bdg bdg-b">Bank PO / Clerk</span><span class="bdg bdg-b">UPSC CSE</span><span class="bdg bdg-b">Defence / NDA</span><span class="bdg bdg-o">+ Any Exam</span>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════ REGISTER ═══════════════ -->
+<div class="pg" id="pg-register">
+  <div class="pg-title">📝 Create Your Profile</div>
+  <div class="pg-sub">Takes 2 minutes — find your travel Saathi today</div>
+  <div id="reg-alert"></div>
+
+  <div class="card">
+    <div class="card-hd"><div class="ico">👤</div> Personal Details</div>
+    <div class="fgrid">
+      <div class="fg"><label>Full Name *</label><input type="text" id="r-name" placeholder="e.g. Rahul Sharma"/></div>
+      <div class="fg"><label>Age</label><input type="number" id="r-age" placeholder="22" min="16" max="45"/></div>
+      <div class="fg"><label>Gender</label>
+        <select id="r-gender"><option value="">Prefer not to say</option><option>Male</option><option>Female</option><option>Other</option></select>
+      </div>
+      <div class="fg"><label>WhatsApp / Phone (shown only to matches)</label><input type="tel" id="r-phone" placeholder="+91 98765 43210"/></div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-hd"><div class="ico">📍</div> Your Home Location</div>
+    <div class="fg">
+      <label>City / Village / District *</label>
+      <div class="loc-row">
+        <input type="text" id="r-home" placeholder="e.g. Patna, Bihar"/>
+        <button class="gps-btn" onclick="detectLoc('r-home',this)">📡 GPS</button>
+      </div>
+      <span class="hint">Type your city or click GPS to auto-detect</span>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-hd"><div class="ico">🏫</div> Exam Details</div>
+    <div class="fgrid">
+      <div class="fg"><label>Exam Name *</label><input type="text" id="r-exam" placeholder="e.g. SSC CGL 2024"/></div>
+      <div class="fg"><label>Exam Date *</label><input type="date" id="r-date"/></div>
+      <div class="fg full">
+        <label>Exam Center Address *</label>
+        <div class="loc-row">
+          <input type="text" id="r-center" placeholder="e.g. DAV College, Sector 10, Chandigarh"/>
+          <button class="gps-btn" onclick="detectLoc('r-center',this)">📡 GPS</button>
+        </div>
+        <span class="hint">Enter full address of your examination center</span>
+      </div>
+      <div class="fg"><label>Preferred Travel Mode</label>
+        <select id="r-travel"><option>Open to Any</option><option>Train</option><option>Bus</option><option>Shared Auto / Cab</option><option>Own Vehicle (sharing)</option></select>
+      </div>
+      <div class="fg"><label>Departing From (Station / Bus Stand)</label><input type="text" id="r-depart" placeholder="e.g. Patna Junction"/></div>
+      <div class="fg"><label>Preferred Co-traveller Gender</label>
+        <select id="r-pref"><option value="">No preference</option><option>Male only</option><option>Female only</option><option>Same gender</option></select>
+      </div>
+      <div class="fg"><label>Languages Spoken</label><input type="text" id="r-lang" placeholder="e.g. Hindi, English, Bhojpuri"/></div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-hd"><div class="ico">💬</div> About Yourself <span style="font-size:12px;color:var(--g5);font-weight:400">(optional)</span></div>
+    <div class="fg">
+      <label>Short bio / message to potential Saathis</label>
+      <textarea id="r-bio" rows="3" placeholder="e.g. First attempt at SSC CGL. Looking for a travel companion from Patna side. WhatsApp me after matching!"></textarea>
+    </div>
+  </div>
+
+  <button class="btn btn-pri btn-block" onclick="doRegister()">✅ Register &amp; Find My Saathi →</button>
+</div>
+
+<!-- ═══════════════ MATCHES ═══════════════ -->
+<div class="pg" id="pg-matches">
+  <div class="pg-title">🔍 Find Your Saathi</div>
+  <div class="pg-sub">Real-time matches based on exam center proximity</div>
+  <div id="ma-alert"></div>
+  <div id="ma-noreg" style="display:none">
+    <div class="alert al-inf">📝 Please <strong style="cursor:pointer;color:var(--b7)" onclick="go('register')">register first</strong> to see personalised matches.</div>
+  </div>
+  <div id="ma-main">
+    <div class="match-bar">
+      <input type="text" id="ma-search" placeholder="🔍 Search name, city, exam…" oninput="renderMatches()"/>
+      <select id="ma-exam" onchange="renderMatches()"><option value="">All Exams</option></select>
+      <select id="ma-gender" onchange="renderMatches()"><option value="">All Genders</option><option>Male</option><option>Female</option></select>
+    </div>
+    <div class="mhead">
+      <div class="mcount" id="ma-count">Loading…</div>
+      <div class="liveind"><span class="dot"></span> Live updates</div>
+    </div>
+    <div id="ma-list"></div>
+  </div>
+</div>
+
+<!-- ═══════════════ CHAT ═══════════════ -->
+<div class="pg" id="pg-chat">
+  <div id="cv-list">
+    <div class="pg-title">💬 Messages</div>
+    <div class="pg-sub">Chat with your matched travel companions</div>
+    <div id="chat-convs"></div>
+  </div>
+  <div id="cv-win" style="display:none">
+    <div class="cwin">
+      <div class="cwin-hd">
+        <button class="cback" onclick="backToList()">←</button>
+        <div class="cwin-ava" id="cw-ava">R</div>
+        <div class="cwin-info">
+          <h3 id="cw-name">–</h3>
+          <p id="cw-sub">–</p>
+        </div>
+      </div>
+      <div class="cmsgs" id="cmsgs"></div>
+      <div class="cinput">
+        <input type="text" id="cmsg" placeholder="Type a message…" onkeydown="if(event.key==='Enter')sendMsg()"/>
+        <button class="sbtn" onclick="sendMsg()">➤</button>
+      </div>
+    </div>
+    <div class="qr-area" id="qr-area"></div>
+  </div>
+</div>
+
+<!-- ═══════════════ PROFILE ═══════════════ -->
+<div class="pg" id="pg-profile">
+  <div id="pf-none" style="display:none">
+    <div class="alert al-inf">No profile yet. <strong style="cursor:pointer" onclick="go('register')">Register here →</strong></div>
+  </div>
+  <div id="pf-has">
+    <div class="prof-top">
+      <div class="prof-ava" id="pf-ava">R</div>
+      <div class="prof-name" id="pf-name">–</div>
+      <div class="prof-sub" id="pf-sub">–</div>
+    </div>
+    <div class="card">
+      <div class="card-hd"><div class="ico">📋</div> Your Details</div>
+      <div id="pf-rows"></div>
+    </div>
+    <div style="display:flex;gap:10px;flex-wrap:wrap">
+      <button class="btn btn-sec" onclick="editProfile()">✏️ Edit Profile</button>
+      <button class="btn btn-red" onclick="delProfile()">🗑️ Delete Profile</button>
+    </div>
+  </div>
+</div>
+
+<!-- CONFIRM MODAL -->
+<div class="modal-bg" id="modal-bg">
+  <div class="modal">
+    <h3 id="modal-title">Confirm</h3>
+    <p id="modal-msg">Are you sure?</p>
+    <div class="modal-acts">
+      <button class="btn btn-pri btn-sml" id="modal-ok">Confirm</button>
+      <button class="btn btn-sec btn-sml" onclick="closeModal()">Cancel</button>
+    </div>
+  </div>
+</div>
+
+<footer>
+  Made with ❤️ for Indian government exam aspirants &nbsp;·&nbsp; <strong>SaathiExam</strong> &nbsp;·&nbsp; Free forever &nbsp;·&nbsp; Maps by <strong>OpenStreetMap</strong>
+</footer>
+
+<script>
+/* ══════════════════════════════════════════
+   DATA LAYER
+══════════════════════════════════════════ */
+const SK='saathi_v2_students', MK='saathi_v2_me', CK='saathi_v2_chats';
+
+const SAMPLES=[
+  {id:'s1',name:'Priya Sharma',age:23,gender:'Female',home:'Patna, Bihar',exam:'SSC CGL 2024',examDate:'2025-09-17',center:'Patna Science College, Ashok Rajpath, Patna',travel:'Train',depart:'Patna Junction',pref:'Female only',lang:'Hindi, English',bio:'2nd attempt. Looking for a female travel companion from Patna side. Very friendly 😊',phone:'',lat_h:25.5941,lon_h:85.1376,lat_c:25.6089,lon_c:85.1390,ts:Date.now()-86400000},
+  {id:'s2',name:'Amit Kumar',age:25,gender:'Male',home:'Ara, Bihar',exam:'SSC CGL 2024',examDate:'2025-09-17',center:'Patna Science College, Ashok Rajpath, Patna',travel:'Train',depart:'Ara Junction',pref:'',lang:'Hindi, Bhojpuri',bio:'Preparing for 3 years. Happy to travel with anyone from Ara/Bhojpur area!',phone:'',lat_h:25.5568,lon_h:84.6626,lat_c:25.6089,lon_c:85.1390,ts:Date.now()-172800000},
+  {id:'s3',name:'Sunita Devi',age:22,gender:'Female',home:'Muzaffarpur, Bihar',exam:'RRB NTPC 2024',examDate:'2025-10-05',center:'Hajipur Exam Centre, Bihar Sharif Road, Hajipur',travel:'Bus',depart:'Muzaffarpur Bus Stand',pref:'Female only',lang:'Hindi, Maithili',bio:'First attempt, a bit nervous! Would love a travel buddy.',phone:'',lat_h:26.1197,lon_h:85.3910,lat_c:25.6915,lon_c:85.2087,ts:Date.now()-43200000},
+  {id:'s4',name:'Rajan Singh',age:27,gender:'Male',home:'Gaya, Bihar',exam:'BPSC 2024',examDate:'2025-11-12',center:'Magadh University, Bodh Gaya, Gaya',travel:'Train',depart:'Gaya Junction',pref:'',lang:'Hindi, English',bio:'5th attempt at BPSC. Experience traveller, know the routes well 😄',phone:'',lat_h:24.7914,lon_h:84.9994,lat_c:24.6877,lon_c:84.9897,ts:Date.now()-3600000},
+  {id:'s5',name:'Kavita Yadav',age:24,gender:'Female',home:'Vaishali, Bihar',exam:'SSC CGL 2024',examDate:'2025-09-17',center:'Patna Science College, Ashok Rajpath, Patna',travel:'Open to Any',depart:'Hajipur',pref:'No preference',lang:'Hindi',bio:'Looking for companions from North Bihar heading to Patna center.',phone:'',lat_h:25.6915,lon_h:85.2087,lat_c:25.6089,lon_c:85.1390,ts:Date.now()-7200000},
+  {id:'s6',name:'Deepak Mishra',age:26,gender:'Male',home:'Lucknow, UP',exam:'UPPSC 2024',examDate:'2025-12-01',center:'Allahabad University, Senate Hall, Prayagraj',travel:'Train',depart:'Lucknow Charbagh',pref:'',lang:'Hindi, English, Urdu',bio:'UPPSC first attempt. Planning to go by Prayagraj Express.',phone:'',lat_h:26.8467,lon_h:80.9462,lat_c:25.4358,lon_c:81.8463,ts:Date.now()-21600000},
+  {id:'s7',name:'Anjali Gupta',age:23,gender:'Female',home:'Chapra, Bihar',exam:'SSC CGL 2024',examDate:'2025-09-17',center:'Patna Science College, Ashok Rajpath, Patna',travel:'Train',depart:'Chapra Junction',pref:'Female only',lang:'Hindi, Bhojpuri',bio:'Traveling from Chapra to Patna for SSC CGL. Looking for female saathi!',phone:'',lat_h:25.7752,lon_h:84.7488,lat_c:25.6089,lon_c:85.1390,ts:Date.now()-1800000},
+];
+
+let students=[], me=null, chats={}, activeChatId=null, curPg='home';
+
+function load(){
+  try{
+    const s=localStorage.getItem(SK); students=s?JSON.parse(s):[...SAMPLES]; if(!s)saveS();
+    const m=localStorage.getItem(MK); me=m?JSON.parse(m):null;
+    const c=localStorage.getItem(CK); chats=c?JSON.parse(c):{};
+  }catch{students=[...SAMPLES];me=null;chats={};}
+}
+function saveS(){localStorage.setItem(SK,JSON.stringify(students))}
+function saveM(){localStorage.setItem(MK,JSON.stringify(me))}
+function saveC(){localStorage.setItem(CK,JSON.stringify(chats))}
+
+/* ══════════════════════════════════════════
+   NAVIGATION
+══════════════════════════════════════════ */
+function go(pg){
+  document.querySelectorAll('.pg').forEach(p=>p.classList.remove('on'));
+  document.querySelectorAll('.tnb').forEach(b=>b.classList.remove('on'));
+  document.getElementById('pg-'+pg).classList.add('on');
+  const nb=document.getElementById('nb-'+pg); if(nb)nb.classList.add('on');
+  curPg=pg;
+  document.getElementById('topnav').classList.remove('open');
+  window.scrollTo({top:0,behavior:'smooth'});
+  if(pg==='matches')renderMatches();
+  if(pg==='chat')renderChatList();
+  if(pg==='profile')renderProfile();
+  if(pg==='home')animStats();
+}
+function toggleMenu(){document.getElementById('topnav').classList.toggle('open')}
+
+/* ══════════════════════════════════════════
+   STATS
+══════════════════════════════════════════ */
+function animStats(){
+  numAnim('hs-students',students.length);
+  numAnim('hs-matches', me?findMatches().length:Math.floor(students.length*0.6));
+}
+function numAnim(id,target){
+  let n=0;const el=document.getElementById(id);if(!el)return;
+  const step=Math.max(1,Math.floor(target/24));
+  const iv=setInterval(()=>{n=Math.min(n+step,target);el.textContent=n;if(n>=target)clearInterval(iv);},40);
+}
+
+/* ══════════════════════════════════════════
+   GEOCODE (OpenStreetMap Nominatim — free, no API key)
+══════════════════════════════════════════ */
+async function geocode(q){
+  try{
+    const r=await fetch(`https://nominatim.openstreetmap.org/search?q=${encodeURIComponent(q+', India')}&format=json&limit=1`,{headers:{'Accept-Language':'en'}});
+    const d=await r.json();
+    if(d.length)return{lat:+d[0].lat,lon:+d[0].lon};
+  }catch{}
+  return null;
+}
+
+function detectLoc(id,btn){
+  if(!navigator.geolocation){alert('GPS not available. Please type your location.');return}
+  const orig=btn.innerHTML; btn.innerHTML='⏳';
+  navigator.geolocation.getCurrentPosition(async pos=>{
+    const{latitude:la,longitude:lo}=pos.coords;
+    try{
+      const r=await fetch(`https://nominatim.openstreetmap.org/reverse?lat=${la}&lon=${lo}&format=json`);
+      const d=await r.json();
+      const a=d.address;
+      document.getElementById(id).value=(a.city||a.town||a.village||a.county||'')+(a.state?', '+a.state:'');
+    }catch{document.getElementById(id).value=`${la.toFixed(5)}, ${lo.toFixed(5)}`}
+    btn.innerHTML=orig;
+  },()=>{btn.innerHTML=orig;alert('Could not detect. Please type manually.')});
+}
+
+/* ══════════════════════════════════════════
+   DISTANCE
+══════════════════════════════════════════ */
+function dist(la1,lo1,la2,lo2){
+  if(!la1||!la2)return 9999;
+  const R=6371,dL=(la2-la1)*Math.PI/180,dO=(lo2-lo1)*Math.PI/180;
+  const a=Math.sin(dL/2)**2+Math.cos(la1*Math.PI/180)*Math.cos(la2*Math.PI/180)*Math.sin(dO/2)**2;
+  return R*2*Math.atan2(Math.sqrt(a),Math.sqrt(1-a));
+}
+
+/* ══════════════════════════════════════════
+   REGISTER
+══════════════════════════════════════════ */
+async function doRegister(){
+  const n=v('r-name'),e=v('r-exam'),h=v('r-home'),c=v('r-center'),d=v('r-date');
+  if(!n||!e||!h||!c||!d){showAl('reg-alert','err','⚠️ Please fill all required (*) fields.');return}
+  showAl('reg-alert','inf','🔍 Locating your addresses via OpenStreetMap…');
+  const [hg,cg]=await Promise.all([geocode(h),geocode(c)]);
+  const s={
+    id:'u'+Date.now(),name:n,age:v('r-age'),gender:v('r-gender'),home:h,
+    exam:e,examDate:d,center:c,travel:v('r-travel'),depart:v('r-depart'),
+    pref:v('r-pref'),lang:v('r-lang'),bio:v('r-bio'),phone:v('r-phone'),
+    lat_h:hg?.lat||0,lon_h:hg?.lon||0,lat_c:cg?.lat||0,lon_c:cg?.lon||0,
+    ts:Date.now()
+  };
+  if(me){students=students.filter(x=>x.id!==me.id)}
+  students.push(s); me=s; saveS(); saveM();
+  showAl('reg-alert','ok','✅ Profile saved! Finding your Saathis…');
+  setTimeout(()=>go('matches'),1100);
+}
+function v(id){const e=document.getElementById(id);return e?(e.value||'').trim():''}
+function showAl(id,t,msg){const e=document.getElementById(id);if(e)e.innerHTML=`<div class="alert al-${t}">${msg}</div>`}
+
+/* ══════════════════════════════════════════
+   MATCHING ALGORITHM
+══════════════════════════════════════════ */
+function score(a,b){
+  if(a.id===b.id)return-1;
+  const cd=dist(a.lat_c,a.lon_c,b.lat_c,b.lon_c);
+  if(cd>25)return-1; // different center area
+  let sc=100-Math.round(cd*2); // base from center proximity
+  if(a.exam.toLowerCase()===b.exam.toLowerCase())sc+=35;
+  if(a.examDate===b.examDate)sc+=20;
+  const hd=dist(a.lat_h,a.lon_h,b.lat_h,b.lon_h);
+  sc+=Math.max(0,30-hd); // closer home = better
+  if(a.depart&&b.depart&&a.depart.toLowerCase().includes(b.depart.split(',')[0].toLowerCase()))sc+=10;
+  return Math.min(99,Math.max(1,Math.round(sc)));
+}
+
+function findMatches(){
+  if(!me)return[];
+  return students.map(s=>({...s,_sc:score(me,s)})).filter(s=>s._sc>0).sort((a,b)=>b._sc-a._sc);
+}
+
+/* ══════════════════════════════════════════
+   RENDER MATCHES
+══════════════════════════════════════════ */
+function renderMatches(){
+  if(!me){
+    document.getElementById('ma-noreg').style.display='block';
+    document.getElementById('ma-main').style.display='none';
+    return;
+  }
+  document.getElementById('ma-noreg').style.display='none';
+  document.getElementById('ma-main').style.display='block';
+
+  let list=findMatches();
+
+  // Populate exam filter
+  const exams=[...new Set(students.map(s=>s.exam))];
+  const exSel=document.getElementById('ma-exam');
+  const prev=exSel.value;
+  exSel.innerHTML='<option value="">All Exams</option>'+exams.map(e=>`<option${prev===e?' selected':''}>${e}</option>`).join('');
+
+  const q=(document.getElementById('ma-search').value||'').toLowerCase();
+  const ef=document.getElementById('ma-exam').value;
+  const gf=document.getElementById('ma-gender').value;
+  if(q)list=list.filter(m=>m.name.toLowerCase().includes(q)||m.home.toLowerCase().includes(q)||m.exam.toLowerCase().includes(q));
+  if(ef)list=list.filter(m=>m.exam===ef);
+  if(gf)list=list.filter(m=>m.gender===gf);
+
+  document.getElementById('ma-count').textContent=`${list.length} saathi${list.length!==1?'s':''} found`;
+  const con=document.getElementById('ma-list');
+
+  if(!list.length){
+    con.innerHTML=`<div class="nf">
+      <div class="nf-spin"></div>
+      <h3>No Saathis Found Yet</h3>
+      <p>Searching for students heading to <strong>${me.center}</strong>…</p>
+      <p>As more students register for your exam, they'll appear here automatically.</p>
+      <br/><button class="btn btn-sec btn-sml" onclick="go('register')">✏️ Update My Profile</button>
+    </div>`;
+    return;
+  }
+
+  const COLORS=['#1d4ed8','#7c3aed','#059669','#b45309','#be185d','#0891b2'];
+  con.innerHTML=list.map(m=>{
+    const ini=m.name.split(' ').map(w=>w[0]).join('').slice(0,2).toUpperCase();
+    const col=COLORS[m.name.charCodeAt(0)%COLORS.length];
+    const sameE=me.exam.toLowerCase()===m.exam.toLowerCase();
+    const sameD=me.examDate===m.examDate;
+    const cd=dist(me.lat_c,me.lon_c,m.lat_c,m.lon_c);
+    const hd=dist(me.lat_h,me.lon_h,m.lat_h,m.lon_h);
+    const chatId=cid(me.id,m.id);
+    const hasChat=chats[chatId]&&chats[chatId].msgs.length>0;
+    const mapSrc=m.lat_c?`https://www.openstreetmap.org/export/embed.html?bbox=${m.lon_c-.04},${m.lat_c-.03},${m.lon_c+.04},${m.lat_c+.03}&layer=mapnik&marker=${m.lat_c},${m.lon_c}`:'';
+    const examFmt=m.examDate?new Date(m.examDate).toLocaleDateString('en-IN',{day:'numeric',month:'short',year:'numeric'}):'—';
+    return `<div class="mc">
+      <div class="mc-top">
+        <div class="mc-left">
+          <div class="ava" style="background:${col}">${ini}</div>
+          <div class="mc-info">
+            <div class="mc-name">${m.name}</div>
+            <div class="mc-exam">${m.exam} &nbsp;·&nbsp; ${m.gender||'—'} &nbsp;·&nbsp; Age ${m.age||'—'}</div>
+            <div class="badges">
+              ${sameE?'<span class="bdg bdg-g">✓ Same Exam</span>':''}
+              ${sameD?'<span class="bdg bdg-g">✓ Same Date</span>':''}
+              ${cd<3?'<span class="bdg bdg-o">📍 Same Center</span>':''}
+              <span class="bdg bdg-b">🚆 ${m.travel}</span>
+              ${m.lang?`<span class="bdg bdg-b">🗣️ ${m.lang}</span>`:''}
+            </div>
+          </div>
+        </div>
+        <div class="score-ring"><div class="score-n">${m._sc}%</div><div class="score-l">match</div></div>
+      </div>
+      <div class="mc-locs">
+        <div class="loc-it"><span class="loc-ic">🏠</span><div class="loc-txt"><span class="loc-lbl">Home</span>${m.home}</div></div>
+        <div class="loc-it"><span class="loc-ic">🏫</span><div class="loc-txt"><span class="loc-lbl">Exam Center</span>${m.center}</div></div>
+        ${m.depart?`<div class="loc-it"><span class="loc-ic">🚉</span><div class="loc-txt"><span class="loc-lbl">Departing From</span>${m.depart}</div></div>`:''}
+        <div class="loc-it"><span class="loc-ic">📅</span><div class="loc-txt"><span class="loc-lbl">Exam Date</span>${examFmt}</div></div>
+        ${hd<9999?`<div class="loc-it"><span class="loc-ic">📏</span><div class="loc-txt"><span class="loc-lbl">Home Distance</span>${hd.toFixed(1)} km away</div></div>`:''}
+        ${m.pref?`<div class="loc-it"><span class="loc-ic">👥</span><div class="loc-txt"><span class="loc-lbl">Prefers</span>${m.pref}</div></div>`:''}
+      </div>
+      ${m.bio?`<div class="mc-bio">"${esc(m.bio)}"</div>`:''}
+      ${mapSrc?`<iframe class="mc-map" src="${mapSrc}" loading="lazy" title="Exam center on map" allowfullscreen></iframe>`:''}
+      <div class="mc-acts">
+        <button class="btn btn-pri btn-sml" onclick="openChat('${m.id}')">💬 ${hasChat?'Continue Chat':'Message Saathi'}</button>
+        <button class="btn btn-sec btn-sml" onclick="shareMatch('${m.id}')">📤 Share</button>
+      </div>
+    </div>`;
+  }).join('');
+}
+
+/* ══════════════════════════════════════════
+   CHAT
+══════════════════════════════════════════ */
+function cid(a,b){return[a,b].sort().join('__')}
+
+function openChat(sid){
+  const other=students.find(s=>s.id===sid);
+  if(!other||!me)return;
+  activeChatId=cid(me.id,sid);
+  if(!chats[activeChatId])chats[activeChatId]={msgs:[],members:[me.id,sid]};
+  go('chat');
+  openWin(sid);
+}
+
+function openWin(sid){
+  const o=students.find(s=>s.id===sid); if(!o)return;
+  activeChatId=cid(me.id,sid);
+  if(!chats[activeChatId])chats[activeChatId]={msgs:[],members:[me.id,sid]};
+  const ini=o.name.split(' ').map(w=>w[0]).join('').slice(0,2).toUpperCase();
+  document.getElementById('cw-ava').textContent=ini;
+  document.getElementById('cw-name').textContent=o.name;
+  document.getElementById('cw-sub').textContent=`${o.exam} · ${o.home}`;
+  document.getElementById('cv-list').style.display='none';
+  document.getElementById('cv-win').style.display='block';
+  renderMsgs();
+  renderQR(sid);
+  setTimeout(()=>document.getElementById('cmsg').focus(),100);
+}
+
+function backToList(){
+  document.getElementById('cv-list').style.display='block';
+  document.getElementById('cv-win').style.display='none';
+  activeChatId=null; renderChatList();
+}
+
+function sendMsg(){
+  if(!activeChatId||!me)return;
+  const inp=document.getElementById('cmsg');
+  const txt=inp.value.trim(); if(!txt)return;
+  chats[activeChatId].msgs.push({from:me.id,text:txt,t:Date.now()});
+  saveC(); inp.value=''; renderMsgs();
+  const othId=chats[activeChatId].members.find(x=>x!==me.id);
+  const oth=students.find(s=>s.id===othId);
+  if(oth&&Math.random()>.35){
+    const R=["Okay! That sounds good 😊","Which train/bus are you planning?","Let's meet 30 mins before at the station!","Sure, I'll share my WhatsApp once we confirm.","I'm also going from the same side!","Great idea! Let me check the train timings.","Yes! I booked the same train 🚂","Would love to travel together. Stay connected!","Which date are you planning to leave?"];
+    setTimeout(()=>{
+      chats[activeChatId].msgs.push({from:othId,text:R[Math.floor(Math.random()*R.length)],t:Date.now()});
+      saveC(); if(document.getElementById('cmsgs'))renderMsgs();
+    },900+Math.random()*1400);
+  }
+}
+
+function renderMsgs(){
+  const con=document.getElementById('cmsgs'); if(!con||!activeChatId)return;
+  const msgs=(chats[activeChatId]||{}).msgs||[];
+  if(!msgs.length){con.innerHTML='<div style="text-align:center;padding:2rem;color:var(--g5);font-size:13px">👋 Say hello to your potential Saathi!</div>';return}
+  con.innerHTML=msgs.map(m=>`<div class="msg ${m.from===me.id?'me':'them'}">
+    <div class="bub">${esc(m.text)}</div>
+    <div class="msg-t">${ago(m.t)}</div>
+  </div>`).join('');
+  con.scrollTop=con.scrollHeight;
+}
+
+function renderQR(sid){
+  const QR=["👋 Hi! Saw we have the same exam center.","Which train are you planning to take?","Let's travel together — saves money!","Can you share your WhatsApp number?","Which date are you travelling?","Are you going alone or with someone?","Let's meet at the railway station.","I'm also from nearby — let's connect!"];
+  const area=document.getElementById('qr-area');
+  area.innerHTML=`<div class="qr-label">Quick Messages</div><div class="qr-btns">${QR.map(q=>`<button class="btn btn-sec btn-sml" onclick="qrSend('${esc(q)}')">${q}</button>`).join('')}</div>`;
+}
+
+function qrSend(t){document.getElementById('cmsg').value=t;sendMsg();}
+
+function renderChatList(){
+  const con=document.getElementById('chat-convs');
+  if(!me){con.innerHTML='<div class="alert al-inf">Please register to use chat.</div>';return}
+  const mine=Object.entries(chats).filter(([id])=>id.includes(me.id));
+  if(!mine.length){
+    con.innerHTML=`<div class="empty-chat"><div class="ec-ico">💬</div><h3>No conversations yet</h3><p>Find a Saathi and start chatting!</p><br/><button class="btn btn-pri btn-sml" onclick="go('matches')">🔍 Find Saathi</button></div>`;
+    return;
+  }
+  con.innerHTML='<div class="chat-list">'+mine.map(([chatId,chat])=>{
+    const othId=chat.members.find(x=>x!==me.id);
+    const o=students.find(s=>s.id===othId); if(!o)return'';
+    const ini=o.name.split(' ').map(w=>w[0]).join('').slice(0,2).toUpperCase();
+    const last=chat.msgs[chat.msgs.length-1];
+    return `<div class="ci${activeChatId===chatId?' on':''}" onclick="openWin('${othId}')">
+      <div class="ci-ava">${ini}</div>
+      <div class="ci-meta">
+        <div class="ci-name">${o.name}</div>
+        <div class="ci-prev">${last?(last.from===me.id?'You: ':'')+last.text:'Tap to say hi 👋'}</div>
+      </div>
+      ${last?`<div class="ci-time">${ago(last.t)}</div>`:''}
+    </div>`;
+  }).join('')+'</div>';
+}
+
+/* ══════════════════════════════════════════
+   PROFILE
+══════════════════════════════════════════ */
+function renderProfile(){
+  if(!me){document.getElementById('pf-none').style.display='block';document.getElementById('pf-has').style.display='none';return}
+  document.getElementById('pf-none').style.display='none';
+  document.getElementById('pf-has').style.display='block';
+  const ini=me.name.split(' ').map(w=>w[0]).join('').slice(0,2).toUpperCase();
+  document.getElementById('pf-ava').textContent=ini;
+  document.getElementById('pf-name').textContent=me.name;
+  document.getElementById('pf-sub').textContent=`${me.exam} · ${me.home}`;
+  const rows=[['Age',me.age||'—'],['Gender',me.gender||'—'],['Home Location',me.home],['Exam',me.exam],['Exam Date',me.examDate?new Date(me.examDate).toLocaleDateString('en-IN',{day:'numeric',month:'long',year:'numeric'}):'—'],['Exam Center',me.center],['Travel Mode',me.travel||'—'],['Departing From',me.depart||'—'],['Languages',me.lang||'—'],['Prefers',me.pref||'No preference']];
+  document.getElementById('pf-rows').innerHTML=rows.map(([k,v])=>`<div class="prow"><span class="pkey">${k}</span><span class="pval">${v}</span></div>`).join('');
+}
+
+function editProfile(){
+  if(!me)return;
+  const map={name:'r-name',age:'r-age',gender:'r-gender',phone:'r-phone',home:'r-home',exam:'r-exam',examDate:'r-date',center:'r-center',travel:'r-travel',depart:'r-depart',pref:'r-pref',lang:'r-lang',bio:'r-bio'};
+  Object.entries(map).forEach(([mk,fk])=>{const el=document.getElementById(fk);if(el&&me[mk])el.value=me[mk]});
+  go('register');
+}
+
+function delProfile(){
+  showModal('Delete Profile','Are you sure you want to delete your profile? This cannot be undone.',()=>{
+    students=students.filter(s=>s.id!==me.id); saveS();
+    me=null; localStorage.removeItem(MK);
+    go('home');
+  });
+}
+
+/* ══════════════════════════════════════════
+   SHARE
+══════════════════════════════════════════ */
+function shareMatch(id){
+  const s=students.find(x=>x.id===id); if(!s)return;
+  const text=`Found a potential exam travel partner via SaathiExam!\n\n👤 ${s.name}\n📋 ${s.exam}\n🏠 From: ${s.home}\n🏫 Center: ${s.center}\n\nFind your Saathi free at SaathiExam!`;
+  if(navigator.share)navigator.share({title:'SaathiExam Match',text});
+  else{navigator.clipboard?.writeText(text).then(()=>alert('Profile copied to clipboard!')).catch(()=>alert(text))}
+}
+
+/* ══════════════════════════════════════════
+   MODAL
+══════════════════════════════════════════ */
+let _modalCb=null;
+function showModal(title,msg,cb){
+  document.getElementById('modal-title').textContent=title;
+  document.getElementById('modal-msg').textContent=msg;
+  _modalCb=cb;
+  document.getElementById('modal-ok').onclick=()=>{closeModal();if(_modalCb)_modalCb()};
+  document.getElementById('modal-bg').classList.add('open');
+}
+function closeModal(){document.getElementById('modal-bg').classList.remove('open')}
+
+/* ══════════════════════════════════════════
+   UTILS
+══════════════════════════════════════════ */
+function ago(ts){
+  const s=Math.floor((Date.now()-ts)/1000);
+  if(s<60)return'just now';if(s<3600)return Math.floor(s/60)+'m ago';
+  if(s<86400)return Math.floor(s/3600)+'h ago';return Math.floor(s/86400)+'d ago';
+}
+function esc(t){return String(t).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;')}
+
+/* ══════════════════════════════════════════
+   LIVE REFRESH (every 6s)
+══════════════════════════════════════════ */
+setInterval(()=>{
+  if(curPg==='matches')renderMatches();
+  if(curPg==='chat'&&activeChatId)renderMsgs();
+  if(curPg==='home')animStats();
+},6000);
+
+/* ══════════════════════════════════════════
+   INIT
+══════════════════════════════════════════ */
+load();
+document.getElementById('r-date').min=new Date().toISOString().split('T')[0];
+animStats();
+</script>
+</body>
+</html>
